@@ -55,6 +55,7 @@ function getIconAndColor(change: number) {
 
 export function AppSidebar() {
   const [searchTerm, setSearchTerm] = useState('');
+  const [activeItem, setActiveItem] = useState('')
 
   const searchItems = useMemo(() =>
   (items
@@ -84,7 +85,7 @@ export function AppSidebar() {
               searchItems.length > 0 ? searchItems
                 .map((item) => (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton isActive={item.title === activeItem} onClick={() => setActiveItem(item.title)} asChild>
                       <a href={item.url}>
                         <item.icon className="opacity-80" color={item.color} />
                         <span className="w-11">{item.title}</span>
