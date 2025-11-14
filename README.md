@@ -1,3 +1,27 @@
-# Overview
+# stock dashboard
 
-This project is for class CMPSC 445.
+## setup
+
+### backend
+
+
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload
+
+
+optional: use a virtual environment
+
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+uvicorn main:app --reload
+
+
+### dashboard
+
+
+cd dashboard
+npm install
+npm run dev
+
