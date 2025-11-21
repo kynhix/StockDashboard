@@ -91,7 +91,7 @@ export function AppSidebar() {
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))
-                : <div className="flex ml-auto mr-auto gap-2 opacity-80">No stocks found <Frown /></div>
+                : <div className="flex flex-1 gap-2 justify-center font-black/50 text-[14px] bg-black/5 border-spacing-y-10 p-2 rounded">No stocks found <Frown /></div>
             }
           </SidebarMenu>
         </SidebarGroup>
