@@ -81,11 +81,11 @@ export function AppSidebar() {
               searchItems.length > 0 ? searchItems
                 .map((item) => (
                   <SidebarMenuItem key={item.symbol}>
-                    <SidebarMenuButton isActive={item.symbol === slug} asChild>
+                    <SidebarMenuButton isActive={item.symbol === slug} className="font-mono" asChild>
                       <Link href={`/stock/${item.symbol}`}>
                         <item.icon className="opacity-80" color={item.color} />
                         <span className="w-11">{item.symbol}</span>
-                        <span className="opacity-50">|</span>
+                        <span className="opacity-50">-</span>
                         <span className="opacity-80 pl-1.5">${item.price.toFixed(2)}</span>
                       </Link>
                     </SidebarMenuButton>
