@@ -1,43 +1,38 @@
 "use client"
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarInput, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
 import { ChartLine, ChevronDown, ChevronUp, Frown, Minus } from "lucide-react";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 type Item = {
-  title: string,
-  url: string,
+  symbol: string,
   price: number,
   change: number,
 }
 
 const items: Item[] = [
   {
-    title: "AAPL",
-    url: "#",
+    symbol: "AAPL",
     price: 155.09,
     change: 1.1,
   },
   {
-    title: "TSLA",
-    url: "#",
+    symbol: "TSLA",
     price: 155.23,
     change: 5.1,
   },
   {
-    title: "NVDA",
-    url: "#",
+    symbol: "NVDA",
     price: 1238,
     change: -1.1,
   },
   {
-    title: "AMD",
-    url: "#",
+    symbol: "AMD",
     price: 15,
     change: 0,
   },
   {
-    title: "MSFT",
-    url: "#",
+    symbol: "MSFT",
     price: 128,
     change: -5.1,
   },
@@ -60,17 +55,17 @@ export function AppSidebar() {
   const searchItems = useMemo(() =>
   (items
     .filter((item) =>
-      item.title.toLowerCase().includes(searchTerm.toLowerCase())
+      item.symbol.toLowerCase().includes(searchTerm.toLowerCase())
     ).map((item) => ({ ...item, ...getIconAndColor(item.change) })))
     , [searchTerm]);
 
   return (
     <Sidebar>
       <SidebarHeader className="flex flex-col gap-5">
-        <div className="flex gap-2">
+        <Link href="/" className="flex gap-2">
           <ChartLine />
           <h1>Stock Dashboard</h1>
-        </div>
+        </Link>
         <SidebarInput
           id="search"
           placeholder="Search for stock..."
@@ -84,14 +79,14 @@ export function AppSidebar() {
             {
               searchItems.length > 0 ? searchItems
                 .map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton isActive={item.title === activeItem} onClick={() => setActiveItem(item.title)} asChild>
-                      <a href={item.url}>
+                  <SidebarMenuItem key={item.symbol}>
+                    <SidebarMenuButton isActive={item.symbol === activeItem} onClick={() => setActiveItem(item.symbol)} asChild>
+                      <Link href={`/stock/${item.symbol}`}>
                         <item.icon className="opacity-80" color={item.color} />
-                        <span className="w-11">{item.title}</span>
+                        <span className="w-11">{item.symbol}</span>
                         <span className="opacity-50">|</span>
                         <span className="opacity-80 pl-1.5">${item.price.toFixed(2)}</span>
-                      </a>
+                      </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))
