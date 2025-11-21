@@ -2,6 +2,7 @@
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarInput, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
 import { ChartLine, ChevronDown, ChevronUp, Frown, Minus } from "lucide-react";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
 type Item = {
@@ -50,7 +51,7 @@ function getIconAndColor(change: number) {
 
 export function AppSidebar() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeItem, setActiveItem] = useState('')
+  const { slug } = useParams();
 
   const searchItems = useMemo(() =>
   (items
@@ -80,7 +81,7 @@ export function AppSidebar() {
               searchItems.length > 0 ? searchItems
                 .map((item) => (
                   <SidebarMenuItem key={item.symbol}>
-                    <SidebarMenuButton isActive={item.symbol === activeItem} onClick={() => setActiveItem(item.symbol)} asChild>
+                    <SidebarMenuButton isActive={item.symbol === slug} asChild>
                       <Link href={`/stock/${item.symbol}`}>
                         <item.icon className="opacity-80" color={item.color} />
                         <span className="w-11">{item.symbol}</span>
