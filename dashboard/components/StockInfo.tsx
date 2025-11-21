@@ -1,4 +1,5 @@
+'use client'
 
-export default function StockInfo() {
-  return <div></div>
+export default function StockInfo(props: { symbol: string }) {
+  return <div>{props.symbol}</div>
 }

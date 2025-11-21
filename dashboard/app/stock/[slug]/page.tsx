@@ -1,7 +1,16 @@
-import StockInfo from "@/components/StockInfo";
+'use client'
 
-export default function StockPage() {
+import StockInfo from "@/components/StockInfo";
+import { use } from "react";
+
+export default function StockPage({
+  params
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const { slug } = use(params);
+
   return (<main className="flex-1">
-    <StockInfo />
+    <StockInfo symbol={slug} />
   </main>);
 }
