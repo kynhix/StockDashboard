@@ -113,7 +113,7 @@ def get_stock():
         "high" : round(data['High'].values[-1], 2),
         "low" :round(data['Low'].values[-1], 2),
         "close" : round(data['Close'].values[-1], 2),
-        "volume" : data['Volume'].values[-1],
+        "volume" : int(data['Volume'].values[-1]),
         "pb" : round(ticker.info['priceToBook'], 2),
         "pe" : round(ticker.info['trailingPE'], 2),
         "peg" : round(ticker.info['trailingPegRatio'], 2),
