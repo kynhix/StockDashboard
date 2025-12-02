@@ -14,7 +14,5 @@ export type Stock = {
   low: number,
   close: number,
   volume: number,
-  pb: number,
   pe: number,
-  peg: number,
 }
