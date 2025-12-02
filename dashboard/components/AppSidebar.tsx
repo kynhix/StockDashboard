@@ -1,17 +1,12 @@
 "use client"
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupLabel, SidebarHeader, SidebarInput, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar"
+import { StockSidebar } from "@/types/stock";
 import { ChartLine, ChevronDown, ChevronUp, Frown, Minus } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useMemo, useState } from "react";
 
-type Item = {
-  symbol: string,
-  price: number,
-  change: number,
-}
-
-const items: Item[] = [
+const items: StockSidebar[] = [
   {
     symbol: "AAPL",
     price: 155.09,
