@@ -11,26 +11,31 @@ const items: StockSidebar[] = [
     symbol: "AAPL",
     price: 155.09,
     change: 1.1,
+    name: "Apple",
   },
   {
     symbol: "TSLA",
     price: 155.23,
     change: 5.1,
+    name: "Tesla",
   },
   {
     symbol: "NVDA",
     price: 1238,
     change: -1.1,
+    name: "NVIDIA",
   },
   {
     symbol: "AMD",
     price: 15,
     change: 0,
+    name: "AMD",
   },
   {
     symbol: "MSFT",
     price: 128,
     change: -5.1,
+    name: "Microsoft",
   },
 ]
 
@@ -51,7 +56,8 @@ export function AppSidebar() {
   const searchItems = useMemo(() =>
   (items
     .filter((item) =>
-      item.symbol.toLowerCase().includes(searchTerm.toLowerCase())
+      item.symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.name.toLowerCase().includes(searchTerm.toLowerCase())
     ).map((item) => ({ ...item, ...getIconAndColor(item.change) })))
     , [searchTerm]);
 

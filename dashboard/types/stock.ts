@@ -2,6 +2,7 @@ export type StockSidebar = {
   symbol: string,
   price: number,
   change: number,
+  name: string,
 }
 
 export type Stock = {
