@@ -4,7 +4,7 @@ import { StockSidebar } from "@/types/stock";
 import { ChartLine, ChevronDown, ChevronUp, Frown, Minus } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const items: StockSidebar[] = [
   {
@@ -60,6 +60,14 @@ export function AppSidebar() {
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     ).map((item) => ({ ...item, ...getIconAndColor(item.change) })))
     , [searchTerm]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch('http://localhost:8000/stocks');
+      console.log(await res.json());
+    }
+    fetchData();
+  })
 
   return (
     <Sidebar>

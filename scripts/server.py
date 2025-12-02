@@ -1,5 +1,5 @@
 # import Flask
-from flask import Flask, send_from_directory, request, json
+from flask import Flask, json
 from flask_cors import CORS
 import yfinance as yf
 import stockPredictor
@@ -37,28 +37,9 @@ STOCKS = [
 ]
 
 
-# Send index.html
-@app.route("/", methods=["GET"])
-@app.route("/index.html", methods=["GET"])
-def get_index():
-    # return contents of index.html
-    return send_from_directory("", "index.html", mimetype="text/html")
-
-
-# Send main.js
-@app.route("/main.js", methods=["GET"])
-def get_main():
-    # return contents of main.js
-    return send_from_directory("", "main.js", mimetype="text/javascript")
-
-
 # Send the result from machine learning
-# Endpoint is "result"
-@app.route("/result", methods=["GET"])
-def result():
-    # get ticker from text box
-    ticker = request.args.get("ticker")
-
+@app.route("/predict/<ticker>", methods=["GET"])
+def result(ticker):
     # call the prediction function in stockpredictor.py
     result = stockPredictor.prediction(ticker)
 
@@ -72,9 +53,7 @@ def result():
         "ticker": result[5],
     }
 
-    # convert dictionary to JSON string
-    resultString = json.dumps(resultsDict)
-    return resultString
+    return resultsDict
 
 
 # /stocks endpoint to retrieve info on 25 predetermined stocks for the sidebar
@@ -117,11 +96,8 @@ def get_stocks():
 
 
 # /stock endpoint to fetch more detailed data for a single stock
-@app.route("/stock", methods=["GET"])
-def get_stock():
-    # get stock to fetch info for
-    stock = request.args.get("ticker")
-
+@app.route("/stock/<stock>", methods=["GET"])
+def get_stock(stock):
     # convert to ticker object
     ticker = yf.Ticker(stock)
 
@@ -142,15 +118,13 @@ def get_stock():
         "high": round(data["High"].values[-1], 2),
         "low": round(data["Low"].values[-1], 2),
         "close": round(data["Close"].values[-1], 2),
-        "volume": data["Volume"].values[-1],
-        "pb": round(ticker.info["priceToBook"], 2),
+        "volume": int(data["Volume"].values[-1]),
+        # "pb": round(ticker.info["priceToBook"], 2),
         "pe": round(ticker.info["trailingPE"], 2),
-        "peg": round(ticker.info["trailingPegRatio"], 2),
+        # "peg": round(ticker.info["trailingPegRatio"], 2),
     }
 
-    # convert dictionary to JSON string and send
-    resultString = json.dumps(extracted_data)
-    return resultString
+    return extracted_data
 
 
 # Run the server
