@@ -4,40 +4,8 @@ import { StockSidebar } from "@/types/stock";
 import { ChartLine, ChevronDown, ChevronUp, Frown, Minus } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-
-const items: StockSidebar[] = [
-  {
-    symbol: "AAPL",
-    price: 155.09,
-    change: 1.1,
-    name: "Apple",
-  },
-  {
-    symbol: "TSLA",
-    price: 155.23,
-    change: 5.1,
-    name: "Tesla",
-  },
-  {
-    symbol: "NVDA",
-    price: 1238,
-    change: -1.1,
-    name: "NVIDIA",
-  },
-  {
-    symbol: "AMD",
-    price: 15,
-    change: 0,
-    name: "AMD",
-  },
-  {
-    symbol: "MSFT",
-    price: 128,
-    change: -5.1,
-    name: "Microsoft",
-  },
-]
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Spinner } from "./ui/spinner";
 
 function getIconAndColor(change: number) {
   if (change > 0) {
@@ -50,6 +18,8 @@ function getIconAndColor(change: number) {
 }
 
 export function AppSidebar() {
+  const loading = useRef(false);
+  const [items, setItems] = useState<Array<StockSidebar>>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const { slug } = useParams();
 
@@ -59,12 +29,13 @@ export function AppSidebar() {
       item.symbol.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.name.toLowerCase().includes(searchTerm.toLowerCase())
     ).map((item) => ({ ...item, ...getIconAndColor(item.change) })))
-    , [searchTerm]);
+    , [searchTerm, items]);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch('http://localhost:8000/stocks');
-      console.log(await res.json());
+      setItems(await res.json());
+      loading.current = false;
     }
     fetchData();
   })
@@ -87,20 +58,21 @@ export function AppSidebar() {
           <SidebarGroupLabel>Stocks</SidebarGroupLabel>
           <SidebarMenu>
             {
-              searchItems.length > 0 ? searchItems
-                .map((item) => (
-                  <SidebarMenuItem key={item.symbol}>
-                    <SidebarMenuButton isActive={item.symbol === slug} className="font-mono" asChild>
-                      <Link href={`/stock/${item.symbol}`}>
-                        <item.icon className="opacity-80" color={item.color} />
-                        <span className="w-11">{item.symbol}</span>
-                        <span className="opacity-50">-</span>
-                        <span className="opacity-80 pl-1.5">${item.price.toFixed(2)}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ))
-                : <div className="flex flex-1 gap-2 justify-center font-black/50 text-[14px] bg-black/5 border-spacing-y-10 p-2 rounded">No stocks found <Frown /></div>
+              loading ? <div className="flex flex-1 gap-2 justify-center font-black/50 text-[14px] border-spacing-y-10 p-2 rounded"><Spinner /> Fetching stocks...</div>
+                : searchItems.length > 0 ? searchItems
+                  .map((item) => (
+                    <SidebarMenuItem key={item.symbol}>
+                      <SidebarMenuButton isActive={item.symbol === slug} className="font-mono" asChild>
+                        <Link href={`/stock/${item.symbol}`}>
+                          <item.icon className="opacity-80" color={item.color} />
+                          <span className="w-11">{item.symbol}</span>
+                          <span className="opacity-50">-</span>
+                          <span className="opacity-80 pl-1.5">${item.price.toFixed(2)}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  ))
+                  : <div className="flex flex-1 gap-2 justify-center font-black/50 text-[14px] bg-black/5 border-spacing-y-10 p-2 rounded">No stocks found <Frown /></div>
             }
           </SidebarMenu>
         </SidebarGroup>
