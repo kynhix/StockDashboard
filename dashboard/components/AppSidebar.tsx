@@ -18,7 +18,7 @@ function getIconAndColor(change: number) {
 }
 
 export function AppSidebar() {
-  const loading = useRef(false);
+  const [loading, setLoading] = useState(true);
   const [items, setItems] = useState<Array<StockSidebar>>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const { slug } = useParams();
@@ -35,10 +35,10 @@ export function AppSidebar() {
     const fetchData = async () => {
       const res = await fetch('http://localhost:8000/stocks');
       setItems(await res.json());
-      loading.current = false;
+      setLoading(false);
     }
     fetchData();
-  })
+  }, [])
 
   return (
     <Sidebar>

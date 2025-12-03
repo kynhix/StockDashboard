@@ -1,4 +1,3 @@
-# import Flask
 from flask import Flask, json
 from flask_cors import CORS
 import yfinance as yf
@@ -36,6 +35,8 @@ STOCKS = [
     "NFLX",
 ]
 
+CACHE = {}
+
 
 # Send the result from machine learning
 @app.route("/predict/<ticker>", methods=["GET"])
@@ -64,11 +65,8 @@ def get_stocks():
 
     # loop for all stocks
     for stock in STOCKS:
-        # convert stock to ticker object
-        ticker = yf.Ticker(stock)
-
         # get data from 7d
-        data = ticker.history(period="7d")
+        data = CACHE[stock]["history"]
 
         currentPrice = data["Close"].values[-1]
 
@@ -78,7 +76,7 @@ def get_stocks():
             / float(data["Close"].values[-2])
             * 100
         )
-        name = ticker.info["longName"]
+        name = CACHE[stock]["name"]
 
         # dict to send
         extracted_data = {
@@ -98,11 +96,8 @@ def get_stocks():
 # /stock endpoint to fetch more detailed data for a single stock
 @app.route("/stock/<stock>", methods=["GET"])
 def get_stock(stock):
-    # convert to ticker object
-    ticker = yf.Ticker(stock)
-
     # fetch past 7 days data
-    data = ticker.history(period="7d")
+    data = CACHE[stock]["history"]
 
     currentPrice = data["Close"].values[-1]
 
@@ -119,9 +114,7 @@ def get_stock(stock):
         "low": round(data["Low"].values[-1], 2),
         "close": round(data["Close"].values[-1], 2),
         "volume": int(data["Volume"].values[-1]),
-        # "pb": round(ticker.info["priceToBook"], 2),
-        "pe": round(ticker.info["trailingPE"], 2),
-        # "peg": round(ticker.info["trailingPegRatio"], 2),
+        "pe": CACHE[stock]["pe"],
     }
 
     return extracted_data
@@ -131,6 +124,19 @@ def get_stock(stock):
 if __name__ == "__main__":
     # train the model
     # stockPredictor.train()
+
+    # cache data so the requests don't take forever
+    for stock in STOCKS:
+        # convert stock to ticker object
+        ticker = yf.Ticker(stock)
+
+        # get data from 7d
+        history = ticker.history(period="7d")
+
+        name = ticker.info["longName"]
+        pe = ticker.info["trailingPE"] or None
+
+        CACHE[stock] = {"history": history, "name": name, "pe": pe}
 
     # start the server
     app.run(port=8000)
