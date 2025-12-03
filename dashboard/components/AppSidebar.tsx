@@ -4,7 +4,7 @@ import { StockSidebar } from "@/types/stock";
 import { ChartLine, ChevronDown, ChevronUp, Frown, Minus } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Spinner } from "./ui/spinner";
 
 function getIconAndColor(change: number) {

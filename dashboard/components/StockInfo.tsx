@@ -1,10 +1,15 @@
 'use client'
 
-import { Stock } from "@/types/stock"
+import { Stock, StockPrediction } from "@/types/stock"
 import StockAttribute from "./StockAttribute"
 import { useEffect, useState } from "react"
+import { Button } from "./ui/button"
+import { Spinner } from "./ui/spinner"
+import { CircleDollarSign } from "lucide-react"
 
 export default function StockInfo(props: { symbol: string }) {
+  const [predicting, setPredicting] = useState(false);
+  const [prediction, setPrediction] = useState<StockPrediction | null>(null);
   const [stock, setStock] = useState<Stock | null>(null)
 
   useEffect(() => {
@@ -14,6 +19,13 @@ export default function StockInfo(props: { symbol: string }) {
     }
     fetchStock();
   }, [props.symbol])
+
+  const predictStock = async () => {
+    setPredicting(true);
+    const resp = await fetch(`http://localhost:8000/predict/${props.symbol}`);
+    setPrediction(await resp.json());
+    setPredicting(false);
+  }
 
   return <div className="flex flex-col bg-black/2 max-w-200 min-h-full mx-auto flex-wrap p-4">
     {stock ?
@@ -31,6 +43,11 @@ export default function StockInfo(props: { symbol: string }) {
           <StockAttribute name="Volume" attribute={stock.volume.toFixed(2)} />
           <StockAttribute name="P/E ratio" attribute={stock.pe.toFixed(2)} />
         </div>
-      </> : <div>Loading</div>}
+        <Button variant="outline" size="lg" className="mt-15" onClick={predictStock} disabled={predicting}>
+          <CircleDollarSign size={32} /> Predict
+        </Button>
+
+        {prediction ? <div>{prediction.prediction}</div> : <></>}
+      </> : <div><Spinner /> Loading</div>}
   </div>
 }

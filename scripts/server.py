@@ -45,7 +45,7 @@ def result(ticker):
     result = stockPredictor.prediction(ticker)
 
     resultsDict = {
-        "model": "Soft Voting Classifier Composed of RandomForest, LogisticRegression, SVM, and an AdaBoostClassifier using DecisionTreeClassifiers",
+        "model": "SVM",
         "accuracy": result[0],
         "precision": result[1],
         "recall": result[2],
@@ -122,9 +122,6 @@ def get_stock(stock):
 
 # Run the server
 if __name__ == "__main__":
-    # train the model
-    # stockPredictor.train()
-
     # cache data so the requests don't take forever
     for stock in STOCKS:
         # convert stock to ticker object

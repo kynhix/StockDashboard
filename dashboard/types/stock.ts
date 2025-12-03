@@ -16,3 +16,13 @@ export type Stock = {
   volume: number,
   pe: number,
 }
+
+export type StockPrediction = {
+  model: string,
+  accuracy: number,
+  precision: number,
+  recall: number,
+  prediction: string,
+  last_price: number,
+  ticker: string
+}
