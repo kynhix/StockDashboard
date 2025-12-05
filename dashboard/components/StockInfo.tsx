@@ -36,7 +36,7 @@ export default function StockInfo(props: { symbol: string }) {
           <span className="text-xl font-mono">${stock.price.toFixed(2)}</span>
         </div>
         <div className="flex gap-x-5 flex-wrap pt-5">
-          <StockAttribute name="Change" attribute={stock.change} />
+          <StockAttribute name="Change" attribute={(stock.change < 0 ? '-$' : '$') + Math.abs(stock.change)} />
           <StockAttribute name="Open" attribute={'$' + stock.open.toFixed(2)} />
           <StockAttribute name="High" attribute={'$' + stock.high.toFixed(2)} />
           <StockAttribute name="Low" attribute={'$' + stock.low.toFixed(2)} />
