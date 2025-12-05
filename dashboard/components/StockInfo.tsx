@@ -6,6 +6,7 @@ import { useEffect, useState } from "react"
 import { Button } from "./ui/button"
 import { Spinner } from "./ui/spinner"
 import { CircleDollarSign } from "lucide-react"
+import Prediction from "./Prediction"
 
 export default function StockInfo(props: { symbol: string }) {
   const [predicting, setPredicting] = useState(false);
@@ -44,10 +45,10 @@ export default function StockInfo(props: { symbol: string }) {
           <StockAttribute name="P/E ratio" attribute={stock.pe.toFixed(2)} />
         </div>
         <Button variant="outline" size="lg" className="mt-15" onClick={predictStock} disabled={predicting}>
-          <CircleDollarSign size={32} /> Predict
+          {predicting ? <Spinner fontSize={32} /> : <CircleDollarSign size={32} />} Predict
         </Button>
 
-        {prediction ? <div>{prediction.prediction}</div> : <></>}
+        {prediction ? <Prediction prediction={prediction.prediction} /> : <></>}
       </> : <div><Spinner /> Loading</div>}
   </div>
 }
