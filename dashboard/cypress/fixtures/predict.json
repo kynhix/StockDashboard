@@ -1,0 +1,9 @@
+{
+  "accuracy": 0.536,
+  "last_price": 277.8900146484375,
+  "model": "SVM",
+  "precision": 0.287296,
+  "prediction": "Buy",
+  "recall": 0.536,
+  "ticker": "AAPL"
+}

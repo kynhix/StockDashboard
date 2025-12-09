@@ -1,0 +1,152 @@
+[
+  {
+    "change": -0.32,
+    "name": "Apple Inc.",
+    "price": 277.89,
+    "symbol": "AAPL"
+  },
+  {
+    "change": -3.39,
+    "name": "Tesla, Inc.",
+    "price": 439.58,
+    "symbol": "TSLA"
+  },
+  {
+    "change": -1.15,
+    "name": "Amazon.com, Inc.",
+    "price": 226.89,
+    "symbol": "AMZN"
+  },
+  {
+    "change": -2.35,
+    "name": "Alphabet Inc.",
+    "price": 313.72,
+    "symbol": "GOOGL"
+  },
+  {
+    "change": 1.72,
+    "name": "NVIDIA Corporation",
+    "price": 185.55,
+    "symbol": "NVDA"
+  },
+  {
+    "change": 2.78,
+    "name": "Broadcom Inc.",
+    "price": 401.1,
+    "symbol": "AVGO"
+  },
+  {
+    "change": -0.98,
+    "name": "Meta Platforms, Inc.",
+    "price": 666.8,
+    "symbol": "META"
+  },
+  {
+    "change": -1.26,
+    "name": "Eli Lilly and Company",
+    "price": 997.59,
+    "symbol": "LLY"
+  },
+  {
+    "change": -1.35,
+    "name": "Walmart Inc. Common Stock",
+    "price": 113.56,
+    "symbol": "WMT"
+  },
+  {
+    "change": 0.05,
+    "name": "JPMorgan Chase & Co.",
+    "price": 315.21,
+    "symbol": "JPM"
+  },
+  {
+    "change": -1.33,
+    "name": "Visa Inc.",
+    "price": 326.84,
+    "symbol": "V"
+  },
+  {
+    "change": -1.9,
+    "name": "The Wendy's Company",
+    "price": 8.28,
+    "symbol": "WEN"
+  },
+  {
+    "change": 1.36,
+    "name": "Oracle Corporation",
+    "price": 220.54,
+    "symbol": "ORCL"
+  },
+  {
+    "change": -3.56,
+    "name": "The Procter & Gamble Company",
+    "price": 138.34,
+    "symbol": "PG"
+  },
+  {
+    "change": -3.52,
+    "name": "NIKE, Inc.",
+    "price": 63.54,
+    "symbol": "NKE"
+  },
+  {
+    "change": -0.61,
+    "name": "SoFi Technologies, Inc.",
+    "price": 27.61,
+    "symbol": "SOFI"
+  },
+  {
+    "change": 0.84,
+    "name": "Ford Motor Company",
+    "price": 13.14,
+    "symbol": "F"
+  },
+  {
+    "change": 1.44,
+    "name": "Advanced Micro Devices, Inc.",
+    "price": 221.11,
+    "symbol": "AMD"
+  },
+  {
+    "change": -1.0,
+    "name": "Pfizer Inc.",
+    "price": 25.77,
+    "symbol": "PFE"
+  },
+  {
+    "change": 4.41,
+    "name": "Warner Bros. Discovery, Inc.",
+    "price": 27.23,
+    "symbol": "WBD"
+  },
+  {
+    "change": -0.15,
+    "name": "Johnson & Johnson",
+    "price": 201.62,
+    "symbol": "JNJ"
+  },
+  {
+    "change": 0.34,
+    "name": "American Airlines Group Inc.",
+    "price": 14.86,
+    "symbol": "AAL"
+  },
+  {
+    "change": -0.93,
+    "name": "Mastercard Incorporated",
+    "price": 540.44,
+    "symbol": "MA"
+  },
+  {
+    "change": -0.48,
+    "name": "Exxon Mobil Corporation",
+    "price": 115.98,
+    "symbol": "XOM"
+  },
+  {
+    "change": -3.44,
+    "name": "Netflix, Inc.",
+    "price": 96.79,
+    "symbol": "NFLX"
+  }
+]
