@@ -51,3 +51,14 @@ This will startup the dev server at <http://localhost:8000>
 
 Once you have started up both dev servers, you can navigate to
 <http://localhost:3000> in a web browser to access the app.
+
+### Running Cypress Tests
+
+Follow the instructions to startup the frontend dev server. Once the dev server
+is up, run the following command in a new terminal:
+
+```bash
+npx cypress open
+```
+
+Select `e2e tests`, then click the dashboard.spec.ts
